@@ -4,7 +4,6 @@ import type { PropsWithChildren } from 'react';
 import {
   Animated,
   Platform,
-  Text,
   AppState,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -71,10 +70,10 @@ const App = observer(() => {
         <SafeAreaProvider>
           <NavigationContainer>
             <Stack.Navigator
-              initialRouteName="HomeTabs"
+              // initialRouteName="HomeTabs"
               screenOptions={{
                 title: '心启元',
-                headerTitleAlign: 'center',
+                // headerTitleAlign: 'left',
                 headerBackImageSource: require('@images/icons/icon-back.png'),
                 headerShadowVisible: false,
               }}>

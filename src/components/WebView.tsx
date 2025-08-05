@@ -276,7 +276,7 @@ const MyWebView = observer(({ route, navigation }: any) => {
 	useEffect(() => {
 		navigation.setOptions({
 			title: route.params.title || '',
-			headerTitleAlign: 'center',
+			// headerTitleAlign: 'center',
 			headerTintColor: routeParams.barStyle === 'light' ? '#fff' : '#000',
 			headerBackImageSource: require('@images/icons/icon-back.png'),
 			headerTransparent: route.params.fullScreen || false,

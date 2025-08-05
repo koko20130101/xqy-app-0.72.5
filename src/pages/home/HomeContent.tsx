@@ -19,7 +19,7 @@ import CourseItem from './components/CourseItem';
 const windowWidth = Dimensions.get('window').width;
 const HomeContent = observer(({ route, navigation }: any) => {
 	const {
-		publicStore: { tabName, isLogin, projectUrl, publicData, setNvigatioin, setIsLogin },
+		publicStore: { hash, isLogin, projectUrl, publicData, setNvigatioin, setIsLogin },
 		homeStore: {
 			personalArchivesFileData,
 			musicList,
@@ -95,14 +95,11 @@ const HomeContent = observer(({ route, navigation }: any) => {
 	}, []);
 
 	return (
-		<View>
+		<View style={{ ...styles.wrap, zIndex: hash ? 1 : 2 }}>
 			<ScrollView
 				contentInsetAdjustmentBehavior="automatic"
 				showsVerticalScrollIndicator={false}
-				style={{
-					position: tabName === '首页' ? 'relative' : 'absolute',
-					left: tabName === '首页' ? 0 : -9999,
-				}}>
+			>
 				<View style={{ ...styles.container, paddingTop: insets.top }}>
 					<Image source={require('@images/home/home-bg.jpg')} style={styles.imageBackground} resizeMode="contain" />
 					<View style={styles.header}>
@@ -322,6 +319,14 @@ const HomeContent = observer(({ route, navigation }: any) => {
 	);
 });
 const styles = StyleSheet.create({
+	wrap: {
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
+		backgroundColor: '#fff'
+	},
 	container: {
 		flex: 1,
 		position: 'relative',

@@ -11,11 +11,20 @@ const OtherTabContent = observer(({ route, navigation }: any) => {
 	route.params.url = `${projectUrl}/#/${hash}`;
 
 	return (
-		<View style={{ flex: hash ? 1 : 0 }}>
+		<View style={{ ...styles.wrap, zIndex: hash ? 2 : 1 }}>
 			<MyWebView route={{ ...route }} navigation={navigation} />
 		</View>
 	);
 });
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	wrap: {
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
+		backgroundColor: '#fff'
+	},
+});
 
 export default OtherTabContent;

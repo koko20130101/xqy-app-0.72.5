@@ -50,6 +50,7 @@ const Home = observer(({ route, navigation }: any) => {
 	// 检查更新
 	const checkUpdate = async () => {
 		let metaInfo: any = {};
+		console.log(11, updateInfo)
 		if (updateInfo?.expired) {
 			// ... 原生包版本过期，下载或跳转下载页面
 			modalRef.current?.handleShow({
@@ -102,7 +103,8 @@ const Home = observer(({ route, navigation }: any) => {
 
 	useEffect(() => {
 		const onBackPress = () => {
-			if (!canExit.current) {
+			console.log(navigation.canGoBack())
+			if (!canExit.current && !navigation.canGoBack()) {
 				Toast.show('再按一次退出程序', {
 					containerStyle: { borderRadius: 50, paddingHorizontal: 20 },
 					duration: Toast.durations.SHORT,
@@ -136,7 +138,7 @@ const Home = observer(({ route, navigation }: any) => {
 			<OtherTabContent route={{ ...route }} navigation={navigation} />
 			<TabBar />
 			{IsDev && (
-				<View style={{ position: 'absolute', right: 10, bottom: 130 }}>
+				<View style={{ position: 'absolute', right: 10, bottom: 130, zIndex: 3, padding: 5, backgroundColor: '#ddd' }}>
 					<TouchableWithoutFeedback onPress={goDevConfigPage}>
 						<Text>DEV</Text>
 					</TouchableWithoutFeedback>
