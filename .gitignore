@@ -35,6 +35,9 @@ local.properties
 !debug.keystore
 .update
 
+#harmony
+harmony
+
 # node.js
 #
 node_modules/
