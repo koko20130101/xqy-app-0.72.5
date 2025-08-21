@@ -1,10 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {StyleSheet, TextInput, Keyboard, View, Text, TouchableWithoutFeedback, TouchableOpacity, Image} from 'react-native';
-import {useStores} from '@/store';
+import React, { useEffect, useRef, useState } from 'react';
+import { StyleSheet, TextInput, Keyboard, View, Text, TouchableWithoutFeedback, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { useStores } from '@/store';
 import Toast from 'react-native-root-toast';
 import Countdown from '@/components/Countdown';
 import Validator from '@/common/utils/validator';
-import {RES_SUC_CODE} from '@/config';
+import { RES_SUC_CODE } from '@/config';
 import api from '@/api';
 
 interface LoginForm {
@@ -41,19 +41,19 @@ const validateForm = (formData: LoginForm) => {
 	return validator.startValidate();
 };
 
-const Login = ({navigation}: any) => {
+const Login = ({ navigation }: any) => {
 	const {
-		publicStore: {setToken},
+		publicStore: { setToken },
 	} = useStores();
 	const [codeButtonStatus, setCodeButtonStatus] = useState(false);
-	const [formData, setFormData] = useState<LoginForm>({phone: '', code: ''});
+	const [formData, setFormData] = useState<LoginForm>({ phone: '', code: '' });
 	const inputMobileRef = useRef<any>();
 	const inputCodeRef = useRef<any>();
 
 	const updateFormData = (key: string, value: any) => {
 		const obj: any = {};
 		obj[key] = value;
-		setFormData({...formData, ...obj});
+		setFormData({ ...formData, ...obj });
 	};
 
 	// 获取短信验证码
@@ -102,7 +102,7 @@ const Login = ({navigation}: any) => {
 			return;
 		}
 		// 登录
-		const {code, token}: any = await api.loginByCode({
+		const { code, token }: any = await api.loginByCode({
 			phone: formData.phone,
 			code: formData.code,
 		});
@@ -124,42 +124,48 @@ const Login = ({navigation}: any) => {
 	}, []);
 
 	return (
-		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<View style={styles.container}>
-				<View style={styles.logo}>
-					<Image source={require('@images/public/logo.png')} style={{width: 130, height: 130, marginBottom: 40}} />
-				</View>
-				<View style={styles.input}>
-					<Text style={styles.label}>+86</Text>
-					<TextInput
-						ref={inputMobileRef}
-						placeholder="请输入手机号码"
-						keyboardType="numeric"
-						maxLength={11}
-						selectionColor="#06f"
-						style={{flex: 1}}
-						placeholderTextColor={'#747474'}
-						onChangeText={e => updateFormData('phone', e)}
-					/>
-				</View>
-				<View style={styles.input}>
-					<TextInput
-						ref={inputCodeRef}
-						placeholder="请输入短信验证码"
-						keyboardType="numeric"
-						maxLength={6}
-						style={{flex: 1}}
-						placeholderTextColor={'#747474'}
-						onChangeText={e => updateFormData('code', e)}
-					/>
-					{!codeButtonStatus && (
-						<TouchableOpacity style={styles.customButton} onPress={getMobileCode}>
-							<Text style={styles.buttonLabel}>获取验证码</Text>
-						</TouchableOpacity>
-					)}
-					{codeButtonStatus && <Countdown time={60000} format="ss" autoStart onOver={countdownOver} />}
-				</View>
-				<View style={{flexDirection: 'row', marginBottom: 46}}>
+		<ScrollView>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+				<View style={styles.container}>
+					<View style={styles.logo}>
+						<Image source={require('@images/public/logo.png')} style={{ width: 48, height: 48, }} />
+					</View>
+					<Text style={styles.loginTitle}>登陆</Text>
+					<Text style={styles.label}>手机号</Text>
+					<View style={styles.input}>
+						<Image source={require('@images/icons/icon-telephone.png')} style={styles.inputIcon} resizeMode="stretch" />
+						<TextInput
+							ref={inputMobileRef}
+							placeholder="请输入手机号码"
+							keyboardType="numeric"
+							maxLength={11}
+							selectionColor="#06f"
+							style={{ flex: 1 }}
+							placeholderTextColor={'#747474'}
+							onChangeText={e => updateFormData('phone', e)}
+						/>
+					</View>
+					<Text style={styles.label}>验证码</Text>
+					<View style={styles.input}>
+						<Image source={require('@images/icons/icon-telephone.png')} style={styles.inputIcon} resizeMode="stretch" />
+						<TextInput
+							ref={inputCodeRef}
+							placeholder="请输入短信验证码"
+							keyboardType="numeric"
+							maxLength={6}
+							style={{ flex: 1 }}
+							placeholderTextColor={'#747474'}
+							onChangeText={e => updateFormData('code', e)}
+						/>
+						{!codeButtonStatus && (
+							<TouchableOpacity style={styles.customButton} onPress={getMobileCode}>
+								<Text style={styles.buttonLabel}>获取验证码</Text>
+							</TouchableOpacity>
+						)}
+						{codeButtonStatus && <Countdown time={60000} format="ss" autoStart onOver={countdownOver} />}
+					</View>
+
+					{/* <View style={{ flexDirection: 'row', marginBottom: 46 }}>
 					<TouchableOpacity style={styles.agreeButton}>
 						<Image source={require('@images/icons/agree-off.png')} style={styles.agreeIcon} />
 					</TouchableOpacity>
@@ -170,40 +176,59 @@ const Login = ({navigation}: any) => {
 						</TouchableOpacity>
 						，未注册的手机号桨自动创建账号
 					</Text>
+				</View> */}
+					<TouchableOpacity style={styles.loginButton} activeOpacity={0.7} onPress={doSubmit}>
+						<Text style={styles.loginButton_text}>登录</Text>
+					</TouchableOpacity>
+					{/* <View style={styles.register}>
+						<Text style={{ color: '#475569' }}>还没有账号吗？</Text>
+						<TouchableOpacity><Text style={{ color: '#2C6EFB' }}>注册</Text></TouchableOpacity>
+					</View> */}
 				</View>
-				<TouchableOpacity style={styles.loginButton} activeOpacity={0.7} onPress={doSubmit}>
-					<Text style={styles.loginButton_text}>登录</Text>
-				</TouchableOpacity>
-				<View style={{flex: 1}}></View>
-			</View>
-		</TouchableWithoutFeedback>
+			</TouchableWithoutFeedback>
+		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
 		padding: 20,
-		backgroundColor: '#fff',
+		backgroundColor: '#F1F5F9',
 		flex: 1,
-		justifyContent: 'center',
 	},
 	logo: {
 		flexDirection: 'row',
 		justifyContent: 'center',
+		marginTop: 90
+	},
+	loginTitle: {
+		textAlign: 'center',
+		marginTop: 24,
+		marginBottom: 50,
+		fontSize: 24,
+		color: '#000'
 	},
 	input: {
-		backgroundColor: '#F9F9F9',
+		height: 56,
+		backgroundColor: '#fff',
 		color: '#000',
-		borderRadius: 50,
+		borderRadius: 16,
 		paddingHorizontal: 20,
 		alignItems: 'center',
 		flexDirection: 'row',
 		marginBottom: 20,
 		fontWeight: 'bold',
 	},
+	inputIcon: {
+		width: 18,
+		height: 18,
+		marginRight: 10
+	},
 	label: {
-		color: '#747474',
-		fontSize: 14,
+		color: '#000',
+		fontSize: 16,
+		marginBottom: 10,
+		marginLeft: 3
 	},
 	customButton: {
 		padding: 10,
@@ -212,10 +237,11 @@ const styles = StyleSheet.create({
 		color: '#333',
 	},
 	loginButton: {
-		backgroundColor: '#8EDBC9',
-		height: 54,
-		borderRadius: 54,
+		backgroundColor: '#1E64FA',
+		height: 56,
+		borderRadius: 16,
 		justifyContent: 'center',
+		marginTop: 8
 	},
 	loginButton_text: {
 		color: '#fff',
@@ -242,6 +268,11 @@ const styles = StyleSheet.create({
 		color: '#8EDBC9',
 		fontSize: 12,
 	},
+	register: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		marginTop: 14,
+	}
 });
 
 export default Login;

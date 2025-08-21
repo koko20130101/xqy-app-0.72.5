@@ -20,7 +20,7 @@ class PublicStore {
 	token: string = '';
 	isLogin: boolean = false;
 	hash: string = ''; // WebView加载地址的hash路由
-	tabName: string = '首页'; // 当前tab名称
+	tabName: string = '检测'; // 当前tab名称
 	projectUrl: string = PROJECT_URL; // web地址
 	tabsFiexd: boolean = true; // tabs绝对定位
 	BLEService = BLEService; // 蓝牙设备实例

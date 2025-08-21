@@ -24,11 +24,9 @@ const HomeContent = observer(({ route, navigation }: any) => {
 			personalArchivesFileData,
 			musicList,
 			courseList,
-			questionnaireList,
 			getUserHealthRecord,
 			getMusicList,
 			getCourseList,
-			getQuestionnaireList,
 		},
 	} = useStores();
 	const modalRef = useRef<any>(null);
@@ -89,8 +87,6 @@ const HomeContent = observer(({ route, navigation }: any) => {
 	useEffect(() => {
 		// 课程列表
 		getCourseList();
-		// 量表
-		getQuestionnaireList();
 		setNvigatioin(navigation);
 	}, []);
 
@@ -101,81 +97,16 @@ const HomeContent = observer(({ route, navigation }: any) => {
 				showsVerticalScrollIndicator={false}
 			>
 				<View style={{ ...styles.container, paddingTop: insets.top }}>
-					<Image source={require('@images/home/home-bg.jpg')} style={styles.imageBackground} resizeMode="contain" />
 					<View style={styles.header}>
-						<Text style={styles.headerTitle}>心龙猫</Text>
-						<Text style={styles.headerSubTitle}>每个人心里，住着一位心龙猫</Text>
+						<Text style={styles.headerTitle}>脑波知己 生机蓬勃</Text>
+						<Text style={styles.headerSubTitle}>脑波数据波动驾驶舱</Text>
 					</View>
 					<View style={styles.main}>
-						<View style={styles.device}>
-							<TouchableHighlight underlayColor="none" style={{ flex: 1 }} onPress={goDevicesPage}>
-								<View style={styles.deviceEnter}>
-									<View style={{ ...styles.circleIcon, backgroundColor: '#8EDBC9' }}>
-										<Image source={require('@images/home/icon-link.png')} style={styles.circleIconImg} resizeMode="stretch" />
-									</View>
-									<View>
-										<Text style={styles.cardTitle}>我的设备</Text>
-										<Text style={styles.deviceSubTitle}>{publicData.currentDevice?.deviceName || '点击连接设备'}</Text>
-									</View>
-								</View>
-							</TouchableHighlight>
-							<TouchableHighlight underlayColor="none" style={{ flex: 1, marginLeft: 15 }} onPress={() => goCheckPage(1)}>
-								<View style={{ ...styles.deviceEnter, marginRight: 0 }}>
-									<View style={{ ...styles.circleIcon, backgroundColor: '#FDCCCC' }}>
-										<Image source={require('@images/home/icon-heart-1.png')} style={styles.circleIconImg} resizeMode="stretch" />
-									</View>
-									<View>
-										<Text style={styles.cardTitle}>心力检测</Text>
-										<Text style={styles.deviceSubTitle}>评估当下心力</Text>
-									</View>
-								</View>
-							</TouchableHighlight>
-						</View>
+
 						<View style={{ ...styles.card, backgroundColor: '#E9F6F7' }}>
 							<View style={{ marginLeft: 10, marginBottom: 2, marginTop: 5 }}>
 								<Text style={styles.cardBigTitle}>我的心力能量档案</Text>
 								<Text style={styles.cardSubTitle}>检测-预警-疗愈-干预</Text>
-							</View>
-							<View style={styles.reportContent}>
-								<View style={styles.reportTitleBox}>
-									<Text style={styles.reportTitle}>最近一次心力报告</Text>
-									<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-										<Text style={{ ...styles.cardSubTitle, marginRight: 10 }}>
-											{personalArchivesFileData?.lastExamineTime
-												? dayjs(personalArchivesFileData?.lastExamineTime).format('YYYY/MM/DD HH:mm')
-												: dayjs().format('YYYY/MM/DD HH:mm')}
-										</Text>
-										<Image source={require('@images/home/icon-arrow-right.png')} style={styles.arrowRight} resizeMode="stretch" />
-									</View>
-								</View>
-								<View style={{ flexDirection: 'row' }}>
-									<View style={styles.reportValue}>
-										<View style={{ ...styles.circleIcon, backgroundColor: '#F7F6F9' }}>
-											<Image
-												source={require('@images/home/icon-heart-red.png')}
-												style={styles.circleIconImg}
-												resizeMode="stretch"
-											/>
-										</View>
-										<View>
-											<Text style={styles.cardTitle}>{`${personalArchivesFileData?.lastExamineRecord?.rmssd || '-'}`}</Text>
-											<Text style={styles.cardSubTitle}>心力能量指数</Text>
-										</View>
-									</View>
-									<View style={styles.reportValue}>
-										<View style={{ ...styles.circleIcon, backgroundColor: '#F7F6F9' }}>
-											<Image source={require('@images/home/icon-smile.png')} style={styles.circleIconImg} resizeMode="stretch" />
-										</View>
-										<View>
-											<Text style={styles.cardTitle}>{`${personalArchivesFileData?.lastExamineRecord?.ans || '-'}`}</Text>
-											<Text style={styles.cardSubTitle}>情绪压力指数</Text>
-										</View>
-									</View>
-								</View>
-							</View>
-							<View style={styles.moreReport}>
-								<Text style={{ ...styles.cardSubTitle, marginRight: 4 }}>更多趋势报告</Text>
-								<Image source={require('@images/home/icon-arrow-right.png')} style={styles.arrowRight} resizeMode="center" />
 							</View>
 						</View>
 						{/* 舌诊和亲友检测入口 */}
@@ -283,35 +214,7 @@ const HomeContent = observer(({ route, navigation }: any) => {
 								<CourseItem itemData={item} style={{ marginBottom: 10 }} key={'course-' + index} />
 							))}
 						</View>
-						{/* 心理健康自测 */}
-						<View style={styles.card}>
-							<View style={styles.moreContentBox2}>
-								<Text style={styles.cardBigTitle}>心理健康自测</Text>
-							</View>
-							{questionnaireList.map((item, index) => (
-								<View style={styles.healthTest} key={'questionnaire-' + index}>
-									<Image
-										source={{
-											uri: item.coverImage,
-										}}
-										style={styles.healthTestImg}
-										resizeMode="center"
-									/>
-									<View style={{ flex: 1, marginLeft: 20 }}>
-										<Text style={styles.cardTitle}>{item.title}</Text>
-										<Text style={styles.cardSubTitle}>{item.remark}</Text>
-									</View>
-									<View style={{ ...styles.more, marginRight: 5, backgroundColor: '#F7F6F9' }}>
-										<Image source={require('@images/home/icon-arrow-right.png')} style={styles.arrowRight} resizeMode="center" />
-									</View>
-								</View>
-							))}
-						</View>
 					</View>
-
-					{/* <Button title="扫描蓝牙设备" onPress={goDevicesPage}></Button>
-					<Button title="心力检测" onPress={goCheckPage}></Button>
-					<Button title="舌诊" onPress={goCameraPage}></Button> */}
 				</View>
 			</ScrollView>
 			<ModalDefault ref={modalRef} />
@@ -325,7 +228,7 @@ const styles = StyleSheet.create({
 		right: 0,
 		top: 0,
 		bottom: 0,
-		backgroundColor: '#fff'
+		backgroundColor: '#F1F5F9'
 	},
 	container: {
 		flex: 1,
@@ -335,11 +238,11 @@ const styles = StyleSheet.create({
 	headerTitle: {
 		fontSize: 24,
 		fontWeight: 'bold',
-		marginBottom: 4,
 		color: '#000',
 	},
 	headerSubTitle: {
 		color: '#000',
+		fontSize: 12
 	},
 	main: {
 		flex: 1,
@@ -347,29 +250,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 105,
 		paddingHorizontal: 15,
 	},
-	imageBackground: {
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		width: windowWidth,
-		height: windowWidth * (92 / 125),
-	},
-	device: {
-		flexDirection: 'row',
-	},
-	deviceEnter: {
-		backgroundColor: '#fff',
-		height: 60,
-		borderRadius: 20,
-		padding: 10,
-		flexDirection: 'row',
-		alignItems: 'center',
-	},
 
-	deviceSubTitle: {
-		fontSize: 12,
-		color: '#000',
-	},
 	circleIcon: {
 		width: 40,
 		height: 40,
@@ -411,35 +292,7 @@ const styles = StyleSheet.create({
 		color: '#7D7C81',
 		lineHeight: 16,
 	},
-	// 心力报告
-	reportContent: {
-		backgroundColor: '#fff',
-		borderRadius: 24,
-		marginVertical: 10,
-		padding: 20,
-	},
-	reportTitleBox: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-	},
-	reportTitle: {
-		fontSize: 14,
-		color: '#000',
-		fontWeight: 'bold',
-	},
-	reportValue: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		paddingTop: 15,
-		flex: 1,
-	},
-	moreReport: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center',
-		paddingVertical: 5,
-	},
+
 	moreContentBox: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -476,22 +329,6 @@ const styles = StyleSheet.create({
 	xlmImage: {
 		width: 100,
 		height: 121,
-	},
-	// 心理健康自测
-	healthTest: {
-		backgroundColor: '#fff',
-		borderRadius: 20,
-		padding: 15,
-		height: 85,
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		marginBottom: 10,
-	},
-	healthTestImg: {
-		width: 55,
-		height: 55,
-		borderRadius: 15,
 	},
 });
 

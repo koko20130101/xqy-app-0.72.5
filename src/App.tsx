@@ -12,6 +12,7 @@ import { UpdateProvider, Pushy } from "react-native-update";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { RootSiblingParent } from 'react-native-root-siblings';
+import SplashScreen from 'react-native-splash-screen'
 import { useStores } from '@/store';
 import MyWebView from '@/components/WebView';
 import MiniPlayer from '@/components/MiniPlayer';
@@ -47,6 +48,8 @@ const App = observer(() => {
   }, [fadeAnim]);
 
   useEffect(() => {
+    // 隐藏启动屏
+    SplashScreen.hide()
     const subscription = AppState.addEventListener('change', async (nextAppState: string) => {
       if (nextAppState === 'background') {
         console.log('进入后台');
@@ -56,7 +59,7 @@ const App = observer(() => {
       if (nextAppState === 'active') {
         console.log('进入前台');
         // 连接蓝牙
-        connectDevice();
+        // connectDevice();
       }
     });
     return () => {
@@ -77,8 +80,8 @@ const App = observer(() => {
                 headerBackImageSource: require('@images/icons/icon-back.png'),
                 headerShadowVisible: false,
               }}>
-              <Stack.Screen name="Home" component={Home} initialParams={{ url: '' }} options={{ title: '首页', headerShown: false }} />
-              <Stack.Screen name="Login" component={Login} options={{ title: '', presentation: 'modal' }} />
+              <Stack.Screen name="Home" component={Home} initialParams={{ url: '' }} options={{ title: '检测', headerShown: false }} />
+              <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
               <Stack.Screen name="MusicPlayer" component={MusicPlayer} options={{ title: '' }} />
               <Stack.Screen name="DevConfig" component={DevConfig} />
               <Stack.Screen name="NewWebView" component={MyWebView} />

@@ -12,42 +12,36 @@ interface TabModel {
 
 const tabList: TabModel[] = [
 	{
-		name: '首页',
+		name: '检测',
 		hash: '',
 		iconPath: require('@images/home-off.png'),
 		selectedIconPath: require('@images/home-on.png'),
 	},
 
 	{
-		name: '检测',
+		name: '标注',
 		hash: 'check/0',
-		iconPath: require('@images/AI-off.png'),
-		selectedIconPath: require('@images/AI-on.png'),
+		iconPath: require('@images/mark-off.png'),
+		selectedIconPath: require('@images/mark-on.png'),
 	},
 	{
-		name: '咨询',
-		hash: 'art-healing',
-		iconPath: require('@images/art-off.png'),
-		selectedIconPath: require('@images/art-on.png'),
-	},
-	{
-		name: '训练',
-		hash: 'art-healing',
-		iconPath: require('@images/art-off.png'),
-		selectedIconPath: require('@images/art-on.png'),
+		name: '成果',
+		hash: 'gain/0',
+		iconPath: require('@images/gain-off.png'),
+		selectedIconPath: require('@images/gain-on.png'),
 	},
 	{
 		name: '发现',
 		hash: 'find/0',
-		iconPath: require('@images/art-off.png'),
-		selectedIconPath: require('@images/art-on.png'),
+		iconPath: require('@images/find-off.png'),
+		selectedIconPath: require('@images/find-on.png'),
 	},
-	// {
-	// 	name: '我的',
-	// 	hash: 'mine',
-	// 	iconPath: require('@images/user-off.png'),
-	// 	selectedIconPath: require('@images/user-on.png'),
-	// },
+	{
+		name: '我的',
+		hash: 'mine',
+		iconPath: require('@images/mine-off.png'),
+		selectedIconPath: require('@images/mine-on.png'),
+	},
 ];
 
 const TabBar = observer(() => {
@@ -66,7 +60,9 @@ const TabBar = observer(() => {
 			{tabList.map((item, index) => (
 				<TouchableWithoutFeedback key={'tab-' + index} onPress={() => handleTabClick(item)}>
 					<View style={styles.tab}>
-						<Image style={styles.tabIcon} source={item.name === tabName ? item.selectedIconPath : item.iconPath} />
+						<View style={[styles.tabIconBox, item.name === tabName ? styles.tabIconBoxSelected : null]} >
+							<Image style={styles.tabIcon} source={item.name === tabName ? item.selectedIconPath : item.iconPath} />
+						</View>
 						<Text style={[styles.tabName, item.name === tabName ? styles.tabNameSelected : null]}>{item.name}</Text>
 					</View>
 				</TouchableWithoutFeedback>
@@ -77,17 +73,18 @@ const TabBar = observer(() => {
 
 const styles = StyleSheet.create({
 	tabsContainer: {
-		height: 90,
-		borderTopLeftRadius: 18,
-		borderTopRightRadius: 18,
+		height: 100,
+		// borderTopLeftRadius: 18,
+		// borderTopRightRadius: 18,
 		backgroundColor: '#fff',
 		flexDirection: 'row',
 		justifyContent: 'space-around',
-		alignItems: 'center',
-		shadowOffset: { width: 0, height: 0 },
-		elevation: 10, // Android 投影
-		shadowColor: '#000', // iOS 投影
-		shadowOpacity: 1,
+		paddingTop: 10,
+		// alignItems: 'center',
+		// shadowOffset: { width: 0, height: 0 },
+		// elevation: 10, // Android 投影
+		// shadowColor: '#000', // iOS 投影
+		// shadowOpacity: 1,
 	},
 	tabsFixed: {
 		position: 'absolute',
@@ -103,11 +100,22 @@ const styles = StyleSheet.create({
 	tabName: {
 		fontSize: 12,
 		fontWeight: 'bold',
-		color: '#737B98',
-		marginTop: 4,
+		color: '#475569',
+		marginTop: 5,
 	},
 	tabNameSelected: {
-		color: '#87d7c4',
+		color: '#1e64fa',
+	},
+	tabIconBox: {
+		width: 48,
+		height: 48,
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		borderRadius: 10,
+		overflow: 'hidden'
+	},
+	tabIconBoxSelected: {
+		backgroundColor: '#eff6ff',
 	},
 	tabIcon: {
 		width: 30,

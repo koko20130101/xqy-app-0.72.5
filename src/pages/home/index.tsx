@@ -50,7 +50,7 @@ const Home = observer(({ route, navigation }: any) => {
 	// 检查更新
 	const checkUpdate = async () => {
 		let metaInfo: any = {};
-		console.log(11, updateInfo)
+
 		if (updateInfo?.expired) {
 			// ... 原生包版本过期，下载或跳转下载页面
 			modalRef.current?.handleShow({

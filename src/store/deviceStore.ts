@@ -82,7 +82,7 @@ class DeviceStore {
 			this.BLEService.disConnectDevice();
 			this.BLEService.finishMonitor();
 			clearInterval(this.myInterval);
-			publicStore.updatePublicData({currentDevice: {isConnected: false}});
+			publicStore.updatePublicData({currentDevice: {...publicStore.publicData.currentDevice, isConnected: false}});
 		}
 	};
 
@@ -92,9 +92,9 @@ class DeviceStore {
 	 */
 	removeDevice = () => {
 		this.disConnectDevice();
-		storage.remove('deviceId');
-		storage.remove('serviceId');
-		storage.remove('characteristicId');
+		// storage.remove('deviceId');
+		// storage.remove('serviceId');
+		// storage.remove('characteristicId');
 	};
 
 	/**

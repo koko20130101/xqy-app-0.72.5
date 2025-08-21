@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { Platform } from 'react-native';
+import { Platform, View } from 'react-native';
 // import Lottie from 'lottie-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PERMISSIONS } from 'react-native-permissions';
@@ -317,12 +317,12 @@ const MyWebView = observer(({ route, navigation }: any) => {
 				javaScriptEnabled={true}
 				startInLoadingState
 				// renderLoading={() => (
-				// 	<View style={styles.loadingContainer}>
+				// 	<View>
 				// 		<Lottie
 				// 			source={require('@images/loading.json')}
 				// 			autoPlay
 				// 			loop
-				// 			style={{width: 150, height: 150}}
+				// 			style={{ width: 150, height: 150 }}
 				// 		/>
 				// 	</View>
 				// )}
