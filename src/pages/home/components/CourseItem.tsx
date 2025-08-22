@@ -13,23 +13,17 @@ const CourseItem = (props: CourseItemProps) => {
 	return (
 		<View style={{ ...styles.container, ...props.style }}>
 			<Image
-				style={styles.musicPic}
+				style={styles.pic}
 				source={{
 					uri: itemData.url,
 				}}></Image>
-			<View style={{ flex: 1, marginLeft: 10 }}>
-				<Text style={styles.title} numberOfLines={1}>
-					{itemData.name}
-				</Text>
-				<Text style={{ ...styles.subTitle, flex: 1 }} numberOfLines={2}>
-					{itemData.introduce}
-				</Text>
-				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-					<Text style={{ ...styles.subTitle, color: '#ff6778', lineHeight: 20 }}>
-						{itemData.price ? '￥' + ((itemData.price || 0) / 100).toFixed(2) + '元' : '免费'}
-					</Text>
-					<Text style={styles.tips}>{itemData.studyCount}人在学</Text>
-				</View>
+			<View style={styles.bottomInfo}>
+				<Image source={require('@images/home/icon-arrow-right.png')} style={styles.infoIcon} resizeMode="center" />
+				<Text style={styles.infoText}>251</Text>
+				<Image source={require('@images/home/icon-arrow-right.png')} style={styles.infoIcon} resizeMode="center" />
+				<Text style={styles.infoText}>251</Text>
+				<Image source={require('@images/home/icon-arrow-right.png')} style={styles.infoIcon} resizeMode="center" />
+				<Text style={styles.infoText}>251</Text>
 			</View>
 		</View>
 	);
@@ -41,30 +35,26 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		padding: 10,
 		borderRadius: 20,
-		flexDirection: 'row',
+		width: 200,
 	},
-	musicPic: {
-		width: 145,
+	pic: {
 		height: 82,
 		borderRadius: 10,
 	},
-	title: {
-		fontSize: 14,
-		fontWeight: 'bold',
-		color: '#000',
+	bottomInfo: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		paddingTop: 10,
+		paddingHorizontal: 4
 	},
-	subTitle: {
+	infoIcon: {
+		width: 13,
+		height: 13,
+		marginRight: 6
+	},
+	infoText: {
 		fontSize: 12,
-		color: '#7D7C81',
-		marginTop: 2,
-	},
-	tips: {
-		height: 18,
-		lineHeight: 18,
-		fontSize: 10,
-		backgroundColor: '#def4ef',
-		color: '#4fae97',
-		paddingHorizontal: 8,
-		borderRadius: 10,
+		color: '#475569',
+		marginRight: 18
 	},
 });
