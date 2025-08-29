@@ -80,7 +80,7 @@ const App = observer(() => {
                 headerBackImageSource: require('@images/icons/icon-back.png'),
                 headerShadowVisible: false,
               }}>
-              <Stack.Screen name="Home" component={Home} initialParams={{ url: '' }} options={{ title: '检测', headerShown: false }} />
+              <Stack.Screen name="Home" component={Home} initialParams={{ url: 'home' }} options={{ title: '检测', headerShown: false }} />
               <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
               <Stack.Screen name="MusicPlayer" component={MusicPlayer} options={{ title: '' }} />
               <Stack.Screen name="DevConfig" component={DevConfig} />

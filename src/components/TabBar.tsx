@@ -13,7 +13,7 @@ interface TabModel {
 const tabList: TabModel[] = [
 	{
 		name: '检测',
-		hash: '',
+		hash: 'home',
 		iconPath: require('@images/home-off.png'),
 		selectedIconPath: require('@images/home-on.png'),
 	},
@@ -32,7 +32,7 @@ const tabList: TabModel[] = [
 	},
 	{
 		name: '发现',
-		hash: 'find/0',
+		hash: 'find',
 		iconPath: require('@images/find-off.png'),
 		selectedIconPath: require('@images/find-on.png'),
 	},

@@ -4,9 +4,8 @@ import {
 	View,
 	Text,
 	StyleSheet,
-	Dimensions,
 	Image,
-	TouchableHighlight,
+	TouchableNativeFeedback,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react';
@@ -15,7 +14,6 @@ import { useStores } from '@/store';
 import ModalDefault from '@/components/ModalDefault';
 import CourseItem from './components/CourseItem';
 
-const windowWidth = Dimensions.get('window').width;
 const HomeContent = observer(({ route, navigation }: any) => {
 	const {
 		publicStore: { hash, isLogin, projectUrl, publicData, setNvigatioin, setIsLogin },
@@ -33,8 +31,8 @@ const HomeContent = observer(({ route, navigation }: any) => {
 	// 去搜索蓝牙设备页面
 	const goDevicesPage = async () => {
 		// Vibration.vibrate([0, 50, 0]);
-		if (!isLogin) return goLoginPage();
-		navigation.push('NewWebView', { url: `${projectUrl}/#/devices` });
+		// if (!isLogin) return goLoginPage();
+		navigation.push('NewWebView', { url: `${projectUrl}/#/device`, fullScreen: true });
 	};
 
 	// 登录页面
@@ -63,6 +61,8 @@ const HomeContent = observer(({ route, navigation }: any) => {
 			<ScrollView
 				contentInsetAdjustmentBehavior="automatic"
 				showsVerticalScrollIndicator={false}
+				overScrollMode="never"
+			// scrollEnabled={false}
 			>
 				<View style={{ ...styles.container, paddingTop: insets.top }}>
 					<View style={styles.header}>
@@ -73,14 +73,13 @@ const HomeContent = observer(({ route, navigation }: any) => {
 							<Text style={styles.headerTitle}>脑波知己 生机蓬勃</Text>
 							<Text style={styles.headerSubTitle}>脑波数据波动驾驶舱</Text>
 						</View>
-						<TouchableHighlight>
+						<TouchableNativeFeedback onPress={goDevicesPage}>
 							<Text>
 								连接设备
 							</Text>
-						</TouchableHighlight>
+						</TouchableNativeFeedback>
 					</View>
 					<View style={styles.main}>
-						{/* 商城入口 */}
 						<View style={{ ...styles.card, marginHorizontal: 15 }}>
 							<View style={{ borderRadius: 16, backgroundColor: '#fff', overflow: 'hidden' }}>
 								<Image
@@ -97,15 +96,14 @@ const HomeContent = observer(({ route, navigation }: any) => {
 							</View>
 						</View>
 
-						{/* 成长课程推荐 */}
 						<View style={styles.card}>
-							<View style={{ ...styles.moreContentBox2, marginHorizontal: 15 }}>
+							<View style={{ ...styles.moreContentBox2, paddingLeft: 10, marginHorizontal: 15 }}>
 								<Text style={styles.cardBigTitle}>名师讲座</Text>
-								<TouchableHighlight>
+								<TouchableNativeFeedback onPress={() => console.log(88)}>
 									<Text style={styles.more2}>
 										查看更多
 									</Text>
-								</TouchableHighlight>
+								</TouchableNativeFeedback>
 							</View>
 							<ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row' }}>
 								{courseList.map((item, index) => (
@@ -198,7 +196,6 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		paddingVertical: 10,
-		paddingLeft: 10,
 	},
 	more: {
 		width: 48,
